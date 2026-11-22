@@ -49,7 +49,7 @@ module tb ();
     .ITER_LEN(15_361),
     .R_INC(2),
     .FRAC(16),
-    .PHASE_BITS(16),
+    .PHASE_BITS(8),
     .FREQ_RES(0)
   ) project_audio (
     .clk(clk),
