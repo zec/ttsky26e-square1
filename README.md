@@ -4,7 +4,7 @@
 
 This repository contains Verilog code for an entry into the
 [Tiny Tapeout](https://tinytapeout.com/) demoscene hardware competition,
-part of the TT08 run in 2024.
+part of the TT08 run in 2024, resubmitted for the TTSKY26e run in 2026.
 
 See [the technical documentation](docs/info.md) for what exactly this project does
 and how to use it.
