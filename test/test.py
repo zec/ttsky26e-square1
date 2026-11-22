@@ -47,7 +47,7 @@ async def test_project(dut):
       time += 1
       new_out = dut.uo_out.value
 
-      if ((new_out & VSYNC_MASK) == 0) and ((old_out & VSYNC_MASK) != 0):
+      if ((int(new_out) & VSYNC_MASK) == 0) and ((int(old_out) & VSYNC_MASK) != 0):
         dut._log.info(f"Found VSync; start of frame {frame_no}")
         last_vsync_start = time
 
@@ -55,8 +55,8 @@ async def test_project(dut):
 
 
     last_hsync_start = None
-    old_vsync = ((old_out & VSYNC_MASK) != 0)
-    old_hsync = ((old_out & HSYNC_MASK) != 0)
+    old_vsync = ((int(old_out) & VSYNC_MASK) != 0)
+    old_hsync = ((int(old_out) & HSYNC_MASK) != 0)
     last_vsync_end, last_hsync_end = None, None
 
     # step through a few video frames,
@@ -67,8 +67,8 @@ async def test_project(dut):
       time += 1
       new_out = dut.uo_out.value
 
-      new_vsync = ((new_out & VSYNC_MASK) != 0)
-      new_hsync = ((new_out & HSYNC_MASK) != 0)
+      new_vsync = ((int(new_out) & VSYNC_MASK) != 0)
+      new_hsync = ((int(new_out) & HSYNC_MASK) != 0)
 
       # start of VSync pulse; check pulse-to-pulse timing
       if old_vsync and not new_vsync:
@@ -96,7 +96,7 @@ async def test_project(dut):
         last_hsync_end = time
 
       # only have RGB output during the addressable portion of a frame
-      assert ((new_out & RGB_MASK) == 0) or (
+      assert ((int(new_out) & RGB_MASK) == 0) or (
         ((time - last_hsync_end) >= 48) and
         ((time - last_hsync_end) < 688) and
         ((time - last_vsync_end) >= (CLOCKS_IN_LINE * (25 + 8))) and
